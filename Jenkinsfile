@@ -1,10 +1,9 @@
-Jenkinsfile (Declarative Pipeline)
 pipeline {
-    agent { docker { image 'php' } }
+    agent { docker { image 'ruby' } }
     stages {
         stage('build') {
             steps {
-                sh 'php --version'
+                sh 'ruby --version'
             }
         }
     }
