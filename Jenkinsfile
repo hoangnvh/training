@@ -12,10 +12,8 @@ pipeline {
             } 
        }
         stage ('Analysis') {
-            steps {
-                def pmd = scanForIssues tool: pmdParser(pattern: '**/pmd.xml')
-                publishIssues issues: [pmd]
-            }
+            def pmd = scanForIssues tool: pmdParser(pattern: '**/pmd.xml')
+            publishIssues issues: [pmd]
         }
 
     }
