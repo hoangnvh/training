@@ -10,11 +10,11 @@ pipeline {
             steps {
                 sh '/var/www/vendor/bin/phpmd /var/www/app xml cleancode,codesize,controversial,design,naming,unusedcode --reportfile $WORKSPACE/pmd.xml'
             } 
-       }
-        stage ('Analysis') {
-            def pmd = scanForIssues tool: pmdParser(pattern: '**/pmd.xml')
-            publishIssues issues: [pmd]
+       }    
+    }
+    post {
+        always {
+            recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/pmd.xml')
         }
-
     }
 }
