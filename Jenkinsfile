@@ -7,11 +7,15 @@ pipeline {
     }
     stages {
         stage('Test') {
-            sh '/var/www/vendor/bin/phpmd /var/www/app xml cleancode,codesize,controversial,design,naming,unusedcode --reportfile $WORKSPACE/pmd.xml'
-        }
+            steps {
+                sh '/var/www/vendor/bin/phpmd /var/www/app xml cleancode,codesize,controversial,design,naming,unusedcode --reportfile $WORKSPACE/pmd.xml'
+            } 
+       }
         stage ('Analysis') {
-            def pmd = scanForIssues tool: pmdParser(pattern: '**/pmd.xml')
-            publishIssues issues: [pmd]
+            steps {
+                def pmd = scanForIssues tool: pmdParser(pattern: '**/pmd.xml')
+                publishIssues issues: [pmd]
+            }
         }
 
     }
